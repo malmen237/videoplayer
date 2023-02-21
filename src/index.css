@@ -11,3 +11,22 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+a {
+  color: green;
+  cursor: pointer;
+}
+
+a:hover {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.video-list {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+}
+
+.item-box {
+  padding: 2% 5%;
+}
