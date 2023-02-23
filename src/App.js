@@ -3,7 +3,7 @@ import VideoList from 'components/VideoList';
 import VideoPlayer from 'components/VideoPlayer';
 
 export const App = () => {
-  const [videoId, setVideoId] = useState(null);
+  const [videoId, setVideoId] = useState('');
 
   const playVideo = (event, id) => {
     event.preventDefault();
@@ -12,10 +12,10 @@ export const App = () => {
 
   return (
     <div>
-      {/* {videoId && <VideoPlayer videoId={videoId} />} <br /> */}
-      <VideoPlayer videoId={videoId} />
+      {videoId && <VideoPlayer videoId={videoId} />} <br />
+      {/* <VideoPlayer videoId={videoId} /> */}
       <button type="button" onClick={(event) => playVideo(event)}>Play</button>
-      <VideoList />
+      {!videoId && <VideoList />}
     </div>
   )
 }
