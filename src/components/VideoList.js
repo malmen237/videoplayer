@@ -4,7 +4,7 @@ import { LIST_URL, ACCESS_TOKEN } from 'utils/utils';
 import VideoSearch from 'components/VideoSearch';
 import styled from 'styled-components';
 
-const VideoList = () => {
+const VideoList = ({ setVideoId }) => {
   const [videoList, setVideoList] = useState('');
 
   useEffect(() => {
@@ -25,6 +25,12 @@ const VideoList = () => {
     }
   }, [])
 
+  const playVideo = (event, id) => {
+    event.preventDefault();
+    setVideoId('')
+    setVideoId(id)
+  }
+
   if (videoList === '') {
     return (
       <>
@@ -43,23 +49,19 @@ const VideoList = () => {
         {videoList.map((listItem) => {
           return (
             listItem.assetId === undefined ? (
-              <Link key={listItem.asset.assetId} to="webb.com">
+              <VideoSelector type="button" key={listItem.asset.assetId} onClick={(event) => playVideo(event, listItem.asset.assetId)}>
                 <div className="item-box">
                   <Tumbnail src={listItem.asset.localized[0].images[0].url} alt="tumbnail" />
                   <p>{listItem.asset.localized[0].title}</p>
                 </div>
-              </Link>)
+              </VideoSelector>)
               : (
-                <Link key={listItem.assetId} to="webb.com">
-                  {listItem.localized?.map((singleTitle) => {
-                    return (
-                      <div className="item-box">
-                        <Tumbnail src={singleTitle.images[0].url} alt="tumbnail" />
-                        <p>{singleTitle.title}</p>
-                      </div>
-                    );
-                  })}
-                </Link>
+                <VideoSelector type="button" key={listItem.assetId} onClick={(event) => playVideo(event, listItem.assetId)}>
+                  <div className="item-box">
+                    <Tumbnail src={listItem.localized[0].images[0].url} alt="tumbnail" />
+                    <p>{listItem.localized[0].title}</p>
+                  </div>
+                </VideoSelector>
               )
           );
         })}
@@ -75,6 +77,7 @@ const Tumbnail = styled.img`
   height: 135px;
 `
 
-const Link = styled.a`
-  display: block;
+const VideoSelector = styled.button`
+  background: transparent;
+  border: none;
 `

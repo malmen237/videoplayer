@@ -5,17 +5,10 @@ import VideoPlayer from 'components/VideoPlayer';
 export const App = () => {
   const [videoId, setVideoId] = useState('');
 
-  const playVideo = (event, id) => {
-    event.preventDefault();
-    setVideoId(id)
-  }
-
   return (
     <div>
       {videoId && <VideoPlayer videoId={videoId} />} <br />
-      {/* <VideoPlayer videoId={videoId} /> */}
-      <button type="button" onClick={(event) => playVideo(event)}>Play</button>
-      {!videoId && <VideoList />}
+      <VideoList setVideoId={setVideoId} />
     </div>
   )
 }
