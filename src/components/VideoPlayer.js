@@ -3,7 +3,8 @@
 /* eslint-disable react/jsx-boolean-value */
 import React, { useRef, useEffect, useState } from 'react';
 import ReactHlsPlayer from 'react-hls-player';
-import { VIDEO_FETCH_URL, ACCESS_TOKEN } from 'utils/utils';
+import { VIDEO_FETCH_URL } from 'utils/utils';
+import styled from 'styled-components';
 
 const VideoPlayer = ({ videoId }) => {
   const playerRef = useRef(null);
@@ -14,7 +15,7 @@ const VideoPlayer = ({ videoId }) => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: ACCESS_TOKEN
+        Authorization: process.env.REACT_APP_ACCESS_TOKEN
       }
     }
     fetch(VIDEO_FETCH_URL(videoId), options)
@@ -41,8 +42,8 @@ const VideoPlayer = ({ videoId }) => {
   });
 
   return (
-    <section>
-      {selectedVideo === 'NOT_ENTITLED' ? <p>Sorry, you don't have access to this video</p>
+    <ViewerWrapper>
+      {selectedVideo === 'NOT_ENTITLED' ? <NoAccessText>Sorry, you don't have access to this video</NoAccessText>
        : <ReactHlsPlayer
            playerRef={playerRef}
            src={selectedVideo}
@@ -51,8 +52,19 @@ const VideoPlayer = ({ videoId }) => {
            controls
            width="50%"
            height="auto" />}
-    </section>
+    </ViewerWrapper>
   )
 }
 
 export default VideoPlayer;
+
+const ViewerWrapper = styled.section`
+  padding: 5% 5% 2% 5%;
+`
+
+const NoAccessText = styled.p`
+  color: red;
+  font-size: 1.5em;
+  background-color: lightgrey;
+  padding: 12% 8%;
+`

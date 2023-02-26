@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { VIDEO_SEARCH_URL } from 'utils/utils';
+import styled from 'styled-components';
+import SearchIcon from './Search-Icon.png';
 
 const VideoSearch = ({ setVideoList }) => {
   const [searchRequest, setSearchRequest] = useState('');
@@ -15,15 +17,34 @@ const VideoSearch = ({ setVideoList }) => {
   }
 
   return (
-    <section>
+    <SearchWrapper>
       <form>
-        <label htmlFor="search-input" className="search-input">
-          <input type="text" id="search-input" value={searchRequest} onChange={handleSearchRequest} />
+        <label htmlFor="search-input">
+          <input
+            type="text"
+            id="search-input"
+            className="search-input"
+            value={searchRequest}
+            onChange={handleSearchRequest}
+            placeholder="Text..." />
         </label>
-        <button type="button" onClick={() => submitSearch()}>Search</button>
+        {/* Image from https://www.citypng.com/ */}
+        <SearchButton type="button" onClick={() => submitSearch()}><Search src={SearchIcon} alt="looking-glass" /></SearchButton>
       </form>
-    </section>
+    </SearchWrapper>
   )
 }
 
 export default VideoSearch;
+
+const SearchWrapper = styled.section`
+  padding: 2%;
+`
+
+const SearchButton = styled.button`
+  margin: 0 1% 0 1%;
+`
+
+const Search = styled.img`
+  width: 20px;
+`
