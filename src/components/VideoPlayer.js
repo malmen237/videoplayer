@@ -36,7 +36,7 @@ const VideoPlayer = ({ videoId }) => {
   useEffect(() => {
     if (playerRef.current) {
       playerRef.current.pause();
-      playerRef.current.removeAttribute('scr');
+      playerRef.current.removeAttribute('');
       playerRef.current.load();
     }
   });
